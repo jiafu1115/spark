@@ -20,7 +20,7 @@ Param::e_object resolve_object(const std::string & value)
     else if (value.find("people") != std::string::npos)
         param = Param::OBJ_PERSON;
     else  {
-        std::cerr << "error, \"" << optarg << "\"" << "parameter must be one of: message or room" << std::endl;
+        std::cerr << "error, \"" << optarg << "\" " << "parameter must be one of: message or room" << std::endl;
         exit(1);
     }
     return param;
@@ -122,8 +122,11 @@ Param::Param(int argc, char ** argv)
                 break;
         }
     }
-    if (argc > optind) // TODO: vector
-        data = argv[optind];
+    for (int i = optind; i < argc; ++i) {
+        data += argv[i];
+        if (i < argc -1)
+            data += " ";
+    }
 
     if (auth.empty())
         auth = getenv("SPARK_AUTH");
