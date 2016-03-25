@@ -19,6 +19,8 @@ Param::e_object resolve_object(const std::string & value)
         param = Param::OBJ_ROOM;
     else if (value.find("people") != std::string::npos)
         param = Param::OBJ_PERSON;
+    else if (value.find("membership") != std::string::npos)
+        param = Param::OBJ_MEMBERSHIP;
     else  {
         std::cerr << "error, \"" << optarg << "\" " << "parameter must be one of: message or room" << std::endl;
         exit(1);
@@ -81,9 +83,10 @@ Param::Param(int argc, char ** argv)
                 verb = Param::VRB_LIST;
                 object = resolve_object(optarg);
                 switch(object) {
-                    case Param::OBJ_MESSAGE: cmd = Param::CMD_LIST_MESSAGES; break;
-                    case Param::OBJ_ROOM:    cmd = Param::CMD_LIST_ROOMS; break;
-                    case Param::OBJ_PERSON:  cmd = Param::CMD_LIST_PEOPLE; break;
+                    case Param::OBJ_MESSAGE:    cmd = Param::CMD_LIST_MESSAGES; break;
+                    case Param::OBJ_ROOM:       cmd = Param::CMD_LIST_ROOMS; break;
+                    case Param::OBJ_PERSON:     cmd = Param::CMD_LIST_PEOPLE; break;
+                    case Param::OBJ_MEMBERSHIP: cmd = Param::CMD_LIST_MEMBERSHIPS; break;
                     case Param::OBJ_UNDEFINED: default: break;
                 }
                 break;
@@ -92,8 +95,9 @@ Param::Param(int argc, char ** argv)
                 verb = Param::VRB_CREATE;
                 object = resolve_object(optarg);
                 switch(object) {
-                    case Param::OBJ_MESSAGE: cmd = Param::CMD_CREATE_MESSAGE; break;
-                    case Param::OBJ_ROOM:    cmd = Param::CMD_CREATE_ROOM; break;
+                    case Param::OBJ_MESSAGE:    cmd = Param::CMD_CREATE_MESSAGE; break;
+                    case Param::OBJ_ROOM:       cmd = Param::CMD_CREATE_ROOM; break;
+                    case Param::OBJ_MEMBERSHIP: cmd = Param::CMD_CREATE_ROOM; break;
                     case Param::OBJ_UNDEFINED: default: break;
                 }
                 break;
@@ -102,8 +106,9 @@ Param::Param(int argc, char ** argv)
                 verb = Param::VRB_DELETE;
                 object = resolve_object(optarg);
                 switch(object) {
-                    case Param::OBJ_MESSAGE: cmd = Param::CMD_DELETE_MESSAGE; break;
-                    case Param::OBJ_ROOM:    cmd = Param::CMD_DELETE_ROOM; break;
+                    case Param::OBJ_MESSAGE:    cmd = Param::CMD_DELETE_MESSAGE; break;
+                    case Param::OBJ_ROOM:       cmd = Param::CMD_DELETE_ROOM; break;
+                    case Param::OBJ_MEMBERSHIP: cmd = Param::CMD_DELETE_ROOM; break;
                     case Param::OBJ_UNDEFINED: default: break;
                 }
                 break;
@@ -158,6 +163,9 @@ std::string Param::resolve_spark_id(Spark & spark, const std::string & id)
             return spark.get_id_by_room_name(id);
         case Param::OBJ_PERSON:
             // resolve person by start "regexp"
+            break;
+        case Param::OBJ_MEMBERSHIP:
+            //return spark.get_people(id);
             break;
         case Param::OBJ_UNDEFINED:
             std::cerr << "Error, should not be here: "<<  __func__ << std::endl;

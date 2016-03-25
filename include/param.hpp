@@ -16,6 +16,7 @@ public:
         OBJ_MESSAGE,
         OBJ_ROOM,
         OBJ_PERSON,
+        OBJ_MEMBERSHIP,
     };
     // superset of e_verb and e_object
     enum e_cmd {
@@ -23,8 +24,10 @@ public:
         CMD_LIST_MESSAGES,
         CMD_LIST_ROOMS,
         CMD_LIST_PEOPLE,
+        CMD_LIST_MEMBERSHIPS,
         CMD_CREATE_MESSAGE,
         CMD_CREATE_ROOM,
+        CMD_CREATE_MEMBERSHIP,
         CMD_DELETE_MESSAGE,
         CMD_DELETE_ROOM,
     };

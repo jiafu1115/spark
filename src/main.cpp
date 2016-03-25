@@ -21,6 +21,7 @@ int print_usage()
         "        message                                        Perform VERB on message(s)\n"
         "        room                                           Perform VERB on room\n"
         "        people                                         Perform VERB on people/person\n"
+        "        membership                                     Perform VERB on subscription\n"
         "\n"
         "     PARAMETERS:\n"
         "        -a,  --auth      token                         Access token\n"
@@ -109,6 +110,12 @@ int main(int argc, char ** argv)
                 std::cout << person.id << " <" << person.emails[0] << ">  " << person.displayname << std::endl;
                 //std::cout << person.id << "   " << person.avatar << std::endl;
             }
+            break;
+        }
+        case Param::CMD_LIST_MEMBERSHIPS: {
+            std::deque<Spark::Membership> memberships = spark.list_memberships(opt.id);
+            for (auto & elem : memberships)
+                std::cout << elem.id <<  " mod: " << elem.isModerator << " mon: " <<  elem.isMonitor << " " << spark.get_room_name_by_id(elem.roomId) << std::endl;
             break;
         }
         case Param::CMD_CREATE_MESSAGE: {
