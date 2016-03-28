@@ -21,10 +21,8 @@ Param::e_object resolve_object(const std::string & value)
         param = Param::OBJ_PERSON;
     else if (value.find("membership") != std::string::npos)
         param = Param::OBJ_MEMBERSHIP;
-    else  {
-        std::cerr << "error, \"" << optarg << "\" " << "parameter must be one of: message or room" << std::endl;
-        exit(1);
-    }
+    else
+        return Param::OBJ_UNDEFINED;
     return param;
 }
 

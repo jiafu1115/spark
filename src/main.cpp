@@ -54,22 +54,22 @@ int main(int argc, char ** argv)
 {
     Param opt(argc, argv);
     if (opt.auth.empty()) {
-        std::cerr << "Error, no authentication token" << std::endl;
+        std::cerr << "Error, no authentication token" << std::endl << std::endl;
         print_usage();
     }
 
     if (opt.verb == Param::VRB_UNDEFINED) {
-        std::cerr << "Error, no VERB specified" << std::endl;
+        std::cerr << "Error, no VERB specified" << std::endl << std::endl;
         print_usage();
     }
 
     if (opt.object == Param::OBJ_UNDEFINED) {
-        std::cerr << "Error, no OBJECT specified" << std::endl;
+        std::cerr << "Error, no OBJECT specified" << std::endl << std::endl;
         print_usage();
     }
 
     if (opt.cmd == Param::CMD_UNDEFINED) { // should not happend
-        std::cerr << "Error, no valid VERB/OBJECT combination specified" << std::endl;
+        std::cerr << "Error, no valid VERB/OBJECT combination specified" << std::endl << std::endl;
         print_usage();
     }
 
