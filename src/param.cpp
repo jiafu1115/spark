@@ -131,8 +131,11 @@ Param::Param(int argc, char ** argv)
             data += " ";
     }
 
-    if (auth.empty())
-        auth = getenv("SPARK_AUTH");
+    if (auth.empty()) {
+        const char * env = getenv("SPARK_AUTH");
+        if (env)
+            auth = env;
+    }
 }
 
 std::string Param::resolve_spark_id(Spark & spark, const std::string & id)
