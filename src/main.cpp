@@ -73,7 +73,7 @@ int main(int argc, char ** argv)
         print_usage();
     }
 
-    Spark spark(opt.auth);
+    spark::client spark(opt.auth);
     if (opt.verbose)
         spark.debug(true);
 
@@ -86,13 +86,13 @@ int main(int argc, char ** argv)
                 std::cerr << "Error, no message id/room specified" << std::endl << std::endl;
                 print_usage();
             }
-            std::deque<Spark::Message> messages = spark.list_messages(opt.id);
+            std::deque<spark::message> messages = spark.list_messages(opt.id);
             for (auto & message : messages)
                 std::cout << message.id << " " << "  " << std::left << std::setw(20) << message.email << "   \"" << message.text << "\"" << std::endl;
             break;
         }
         case Param::CMD_LIST_ROOMS: {
-            std::deque<Spark::Room> rooms = spark.list_rooms(opt.id);
+            std::deque<spark::room> rooms = spark.list_rooms(opt.id);
             for (auto & room : rooms)
                 std::cout << room.id << " \"" << room.title << "\"" << std::endl;
             break;
@@ -105,7 +105,7 @@ int main(int argc, char ** argv)
                 }
                 opt.id = opt.data; // "regexp"
             }
-            std::deque<Spark::Person> people = spark.list_people(opt.id);
+            std::deque<spark::person> people = spark.list_people(opt.id);
             for (auto & person : people) {
                 std::cout << person.id << " <" << person.emails[0] << ">  " << person.displayname << std::endl;
                 //std::cout << person.id << "   " << person.avatar << std::endl;
@@ -113,7 +113,7 @@ int main(int argc, char ** argv)
             break;
         }
         case Param::CMD_LIST_MEMBERSHIPS: {
-            std::deque<Spark::Membership> memberships = spark.list_memberships(opt.id);
+            std::deque<spark::membership> memberships = spark.list_memberships(opt.id);
             for (auto & elem : memberships)
                 std::cout << elem.id <<  " mod: " << elem.isModerator << " mon: " <<  elem.isMonitor << " " << spark.get_room_name_by_id(elem.roomId) << std::endl;
             break;

@@ -138,7 +138,7 @@ Param::Param(int argc, char ** argv)
     }
 }
 
-std::string Param::resolve_spark_id(Spark & spark, const std::string & id)
+std::string Param::resolve_spark_id(spark::client & spark, const std::string & id)
 {
     if (id.empty())
         return "";
