@@ -107,7 +107,8 @@ int main(int argc, char ** argv)
             }
             std::deque<spark::person> people = spark.list_people(opt.id);
             for (auto & person : people) {
-                std::cout << person.id << " <" << person.emails[0] << ">  " << person.displayname << std::endl;
+                if (!person.emails.empty())
+                    std::cout << person.id << " <" << person.emails[0] << ">  " << person.displayname << std::endl;
                 //std::cout << person.id << "   " << person.avatar << std::endl;
             }
             break;
