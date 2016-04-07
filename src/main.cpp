@@ -81,6 +81,7 @@ int main(int argc, char ** argv)
     if (!spark_id.empty())
         opt.id = spark_id;
     switch (opt.cmd) {
+        // LIST
         case Param::CMD_LIST_MESSAGES: {
             if (opt.id.empty()) {
                 std::cerr << "Error, no message id/room specified" << std::endl << std::endl;
@@ -88,7 +89,7 @@ int main(int argc, char ** argv)
             }
             std::deque<spark::message> messages = spark.list_messages(opt.id);
             for (auto & message : messages)
-                std::cout << message.id << " " << "  " << std::left << std::setw(20) << message.email << "   \"" << message.text << "\"" << std::endl;
+                std::cout << message.id << " " << "  " << std::left << std::setw(20) << message.personEmail << "   \"" << message.text << "\"" << std::endl;
             break;
         }
         case Param::CMD_LIST_ROOMS: {
@@ -119,6 +120,8 @@ int main(int argc, char ** argv)
                 std::cout << elem.id <<  " mod: " << elem.isModerator << " mon: " <<  elem.isMonitor << " " << spark.get_room_name_by_id(elem.roomId) << std::endl;
             break;
         }
+
+        // CREATE
         case Param::CMD_CREATE_MESSAGE: {
             if (opt.id.empty()) {
                 std::cerr << "Error, no id/room specified" << std::endl << std::endl;
@@ -142,6 +145,21 @@ int main(int argc, char ** argv)
             spark.create_room(opt.data);
             break;
         }
+        case Param::CMD_CREATE_MEMBERSHIP: {
+            if (opt.id.empty()) {
+                std::cerr << "Error, no roomId specified" << std::endl << std::endl;
+                print_usage();
+            }
+            std::deque<spark::message> messages = spark.list_messages(opt.id);
+            if (opt.data.empty()) {
+                std::cerr << "Error, no email specified" << std::endl << std::endl;
+                print_usage();
+            }
+            spark.create_membership(opt.id, opt.data);
+            break;
+        }
+
+        // DELETE
         case Param::CMD_DELETE_MESSAGE:
             if (opt.id.empty()) {
                 std::cerr << "Error, no id specified" << std::endl << std::endl;

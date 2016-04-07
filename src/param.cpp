@@ -95,7 +95,7 @@ Param::Param(int argc, char ** argv)
                 switch(object) {
                     case Param::OBJ_MESSAGE:    cmd = Param::CMD_CREATE_MESSAGE; break;
                     case Param::OBJ_ROOM:       cmd = Param::CMD_CREATE_ROOM; break;
-                    case Param::OBJ_MEMBERSHIP: cmd = Param::CMD_CREATE_ROOM; break;
+                    case Param::OBJ_MEMBERSHIP: cmd = Param::CMD_CREATE_MEMBERSHIP; break;
                     case Param::OBJ_UNDEFINED: default: break;
                 }
                 break;
@@ -106,7 +106,7 @@ Param::Param(int argc, char ** argv)
                 switch(object) {
                     case Param::OBJ_MESSAGE:    cmd = Param::CMD_DELETE_MESSAGE; break;
                     case Param::OBJ_ROOM:       cmd = Param::CMD_DELETE_ROOM; break;
-                    case Param::OBJ_MEMBERSHIP: cmd = Param::CMD_DELETE_ROOM; break;
+                    //case Param::OBJ_MEMBERSHIP: cmd = Param::CMD_DELETE_MEMBERSHIP; break;
                     case Param::OBJ_UNDEFINED: default: break;
                 }
                 break;
