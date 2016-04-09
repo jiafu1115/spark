@@ -38,7 +38,7 @@ public:
         ID_EMAIL
     };
     Param(int argc, char ** argv);
-    std::string resolve_spark_id(spark::client & spark, const std::string & id);
+    std::string resolve_spark_id(libspark::client & spark, const std::string & id);
 
     int argc;
     char ** argv;

@@ -73,7 +73,7 @@ int main(int argc, char ** argv)
         print_usage();
     }
 
-    spark::client spark(opt.auth);
+    libspark::client spark(opt.auth);
     if (opt.verbose)
         spark.debug(true);
 
@@ -87,13 +87,13 @@ int main(int argc, char ** argv)
                 std::cerr << "Error, no message id/room specified" << std::endl << std::endl;
                 print_usage();
             }
-            std::deque<spark::message> messages = spark.list_messages(opt.id);
+            std::deque<libspark::message> messages = spark.list_messages(opt.id);
             for (auto & message : messages)
                 std::cout << message.id << " " << "  " << std::left << std::setw(20) << message.personEmail << "   \"" << message.text << "\"" << std::endl;
             break;
         }
         case Param::CMD_LIST_ROOMS: {
-            std::deque<spark::room> rooms = spark.list_rooms(opt.id);
+            std::deque<libspark::room> rooms = spark.list_rooms(opt.id);
             for (auto & room : rooms)
                 std::cout << room.id << " \"" << room.title << "\"" << std::endl;
             break;
@@ -106,7 +106,7 @@ int main(int argc, char ** argv)
                 }
                 opt.id = opt.data; // "regexp"
             }
-            std::deque<spark::person> people = spark.list_people(opt.id);
+            std::deque<libspark::person> people = spark.list_people(opt.id);
             for (auto & person : people) {
                 if (!person.emails.empty())
                     std::cout << person.id << " <" << person.emails[0] << ">  " << person.displayname << std::endl;
@@ -115,7 +115,7 @@ int main(int argc, char ** argv)
             break;
         }
         case Param::CMD_LIST_MEMBERSHIPS: {
-            std::deque<spark::membership> memberships = spark.list_memberships(opt.id);
+            std::deque<libspark::membership> memberships = spark.list_memberships(opt.id);
             for (auto & elem : memberships)
                 std::cout << elem.id <<  " mod: " << elem.isModerator << " mon: " <<  elem.isMonitor << " " << spark.get_room_name_by_id(elem.roomId) << std::endl;
             break;
@@ -150,7 +150,7 @@ int main(int argc, char ** argv)
                 std::cerr << "Error, no roomId specified" << std::endl << std::endl;
                 print_usage();
             }
-            std::deque<spark::message> messages = spark.list_messages(opt.id);
+            std::deque<libspark::message> messages = spark.list_messages(opt.id);
             if (opt.data.empty()) {
                 std::cerr << "Error, no email specified" << std::endl << std::endl;
                 print_usage();
